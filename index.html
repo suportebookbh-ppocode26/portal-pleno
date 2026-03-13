@@ -1,166 +1,99 @@
-<header>
-    <div class="logo">
-        <span>Portal Pleno O Código</span>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="ebooks.html">Ebooks</a></li>
-            <li><a href="degustacao.html">Degustação</a></li>
-            <li><a href="depoimentos.html">Depoimentos</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-        </ul>
-    </nav>
-</header>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Pleno | O Código (Sincronizado)</title>
+    <title>Portal Pleno | Arsenal Operacional</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #FFD700; --bg: #000; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        body, html { height: 100%; background-color: var(--bg); font-family: 'Inter', sans-serif; overflow: hidden; }
-
-        .bg-layer {
+        /* Fundo do Arsenal com Mockup14 Desfocado */
+        .arsenal-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('capa.jpg') no-repeat center center;
-            background-size: cover; z-index: 1;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('mockup14.png') no-repeat center center;
+            background-size: cover; filter: blur(8px); transform: scale(1.1); z-index: -1;
         }
 
+        body { background-color: var(--bg); font-family: 'Inter', sans-serif; color: var(--white); overflow-x: hidden; }
+
+        /* Header Simplificado (Apenas Ícone) */
         header {
-            background: #000; padding: 0 5%; display: flex; 
+            background: rgba(0,0,0,0.95); padding: 0 5%; display: flex; 
             justify-content: space-between; align-items: center; 
-            position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; 
+            position: fixed; top: 0; width: 100%; z-index: 1000; height: 75px; 
             border-bottom: 2px solid var(--gold);
         }
-        .logo { display: flex; align-items: center; gap: 15px; }
-        .logo img { height: 60px; width: auto; } 
-        .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; color: #fff; letter-spacing: 1px; }
-        
-        nav ul { list-style: none; display: flex; gap: 20px; }
-        nav a { text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
-        nav a:hover { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 50px; width: auto; } /* Apenas o ícone/logo sem o selo textual */
 
-        .main-container {
-            height: 100vh; display: flex; justify-content: space-between;
-            align-items: center; padding: 0 3%; position: relative; z-index: 10;
+        nav ul { list-style: none; display: flex; gap: 15px; }
+        nav a { text-decoration: none; color: #fff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover { color: var(--gold); }
+
+        /* Grid da Biblioteca Arsenal */
+        .arsenal-grid {
+            max-width: 1200px; margin: 120px auto 50px; padding: 20px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px; position: relative; z-index: 10;
         }
 
-        .hero-center { flex: 2; text-align: center; max-width: 600px; padding: 0 10px; }
-        .hero-center h1 { 
-            color: var(--white); font-size: clamp(1rem, 2.2vw, 2.5rem); 
-            text-shadow: 2px 2px 30px #000; text-transform: uppercase; 
-            font-weight: 700; line-height: 1.2; letter-spacing: 2px;
-            white-space: nowrap; 
+        .product-card {
+            text-align: center; transition: transform 0.4s ease; cursor: pointer;
         }
-        .line-hero { width: 100%; height: 6px; background: var(--gold); margin: 15px 0; box-shadow: 0 0 25px var(--gold); }
+        .product-card:hover { transform: translateY(-15px) scale(1.05); }
 
-        .product-window { width: 280px; display: flex; flex-direction: column; align-items: center; position: relative; }
-        .window-title { 
-            color: var(--gold); font-size: 0.85rem; letter-spacing: 5px; text-transform: uppercase; 
-            font-weight: 700; position: absolute; top: 60px; z-index: 100; text-shadow: 2px 2px 10px #000;
+        /* Imagem Ampliada conforme Checkpoint */
+        .product-card img {
+            width: 320px; height: 450px; object-fit: contain; /* Proporção ampliada */
+            background: transparent; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
-        .display-box { width: 100%; height: 480px; position: relative; }
-        .display-box a {
-            width: 100%; height: 100%; position: absolute; top: 0; left: 0;
-            opacity: 0; transition: opacity 1.5s ease-in-out;
-            animation: fadeLoop 18s infinite;
-        }
-        .display-box img { width: 100%; height: 100%; object-fit: contain; }
+        /* Estrelas de Classificação */
+        .stars { color: var(--gold); margin-top: 5px; font-size: 1.2rem; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
 
-        @keyframes fadeLoop {
-            0%, 16.66% { opacity: 1; z-index: 20; }
-            22.22%, 100% { opacity: 0; z-index: 1; }
+        .section-title {
+            text-align: center; color: var(--gold); font-size: 2rem; 
+            text-transform: uppercase; margin-top: 100px; letter-spacing: 3px;
         }
-
-        .display-box a:nth-child(1) { animation-delay: 0s; }
-        .display-box a:nth-child(2) { animation-delay: 3s; }
-        .display-box a:nth-child(3) { animation-delay: 6s; }
-        .display-box a:nth-child(4) { animation-delay: 9s; }
-        .display-box a:nth-child(5) { animation-delay: 12s; }
-        .display-box a:nth-child(6) { animation-delay: 15s; }
-
-        footer {
-            position: fixed; bottom: 0; width: 100%; padding: 15px;
-            text-align: center; background: rgba(0,0,0,0.9); z-index: 1000;
-            border-top: 1px solid rgba(255,215,0,0.1);
-        }
-        .footer-main { 
-            color: var(--white); font-weight: 700; text-transform: uppercase; 
-            font-size: 0.8rem; text-decoration: none; transition: 0.3s;
-            display: block; line-height: 1.4;
-        }
-        .footer-main span { display: block; font-size: 0.65rem; color: rgba(255,255,255,0.7); font-weight: 400; }
-        .footer-main:hover { color: var(--gold); text-shadow: 0 0 15px var(--gold); }
     </style>
 </head>
 <body>
 
-    <div class="bg-layer"></div>
+    <div class="arsenal-bg"></div>
 
     <header>
         <div class="logo">
-            <img src="selo.jpg" alt="Portal Pleno O Código">
-            <span>Portal Pleno O Código</span>
-        </div>
+            <img src="selo.jpg" alt="Portal Pleno"> </div>
         <nav>
             <ul>
                 <li><a href="index.html">Início</a></li>
-                <li><a href="ebooks.html">Ebooks</a></li>
+                <li><a href="#arsenal">Arsenal</a></li>
                 <li><a href="audiobooks.html">Audiobooks</a></li>
-                <li><a href="ebooks.html#arsenal">Arsenal</a></li>
-                <li><a href="depoimentos.html">Depoimentos</a></li>
+                <li><a href="ebooks.html">Ebooks</a></li>
+                <li><a href="avaliacao.html">Avaliação</a></li>
                 <li><a href="degustacao.html">Degustação</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="main-container">
+    <h2 class="section-title">Biblioteca Operacional</h2>
+
+    <div class="arsenal-grid">
+        <div class="product-card" onclick="location.href='descubra.html'">
+            <img src="mockup03.png" alt="Descubra Você">
+            <div class="stars">★★★★★</div>
+        </div>
+
+        <div class="product-card" onclick="location.href='autopsia-en.html'">
+            <img src="audio04.png" alt="Autopsy of Personality">
+            <div class="stars">★★★★★</div>
+        </div>
         
-        <div class="product-window">
-            <div class="window-title">Ebooks</div>
-            <div class="display-box">
-                <a href="descubra.html"><img src="mockup03.png" alt="Descubra Você"></a>
-                <a href="engenharia.html"><img src="mockup05.png" alt="Engenharia da Colisão"></a>
-                <a href="autopsia.html"><img src="mockup07.png" alt="Autópsia da Personalidade"></a>
-                <a href="ebooks.html"><img src="mockup09.png"></a>
-                <a href="ebooks.html"><img src="mockup11.png"></a>
-                <a href="ebooks.html"><img src="mockup01.png"></a>
-            </div>
         </div>
-
-        <div class="hero-center">
-            <h1>O CONFORTO É UMA PRISÃO</h1>
-            <div class="line-hero"></div>
-            <h1>O CÓDIGO É A CHAVE</h1>
-        </div>
-
-        <div class="product-window">
-            <div class="window-title">Audiobooks</div>
-            <div class="display-box">
-                <a href="https://pay.kiwify.com/ilgU4Kg" target="_blank"><img src="audio02.png"></a>
-                <a href="https://pay.kiwify.com.br/lDiv2Do" target="_blank"><img src="audio04.png"></a>
-                <a href="https://pay.kiwify.com.br/PmaKDGV" target="_blank"><img src="audio06.png"></a>
-                <a href="https://pay.kiwify.com.br/nJO91Ia" target="_blank"><img src="audio08.png"></a>
-                <a href="https://pay.kiwify.com/2LTHnl0" target="_blank"><img src="audio10.png"></a>
-                <a href="https://pay.kiwify.com/TGmTjRA" target="_blank"><img src="audio12.png"></a>
-            </div>
-        </div>
-
-    </main>
-
-    <footer>
-        <a href="ebooks.html" class="footer-main">
-            Acesse os protocolos de Engenharia de Colisão e Soberania Mental
-            <span>tome o controle total dos seus sentimentos</span>
-        </a>
-    </footer>
 
 </body>
 </html>
