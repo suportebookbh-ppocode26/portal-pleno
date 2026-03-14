@@ -6,18 +6,20 @@
     <title>Portal Pleno | O Código</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #FFD700; --bg: #000; --white: #fff; --card-bg: rgba(26, 26, 26, 0.7); }
+        :root { --gold: #FFD700; --bg: #000; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { min-height: 100%; background-color: #000; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; color: var(--white); }
+        
+        /* BLOQUEIO DE ROLAGEM - HARDWARE ÚNICO */
+        body, html { height: 100vh; width: 100vw; overflow: hidden; background-color: #000; font-family: 'Inter', sans-serif; color: var(--white); }
 
-        /* BACKDROP SOBERANO - AJUSTE DE BRILHO */
+        /* BACKDROP DINÂMICO */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('capa.jpg') no-repeat center center;
-            background-size: cover; z-index: 1;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('capa.jpg') no-repeat center center;
+            background-size: cover; z-index: 1; transition: 0.8s ease-in-out;
         }
 
-        /* HEADER UNIFICADO */
+        /* HEADER SOBERANO */
         header {
             background: #000; padding: 0 5%; display: flex; 
             justify-content: space-between; align-items: center; 
@@ -29,48 +31,54 @@
         .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; }
         
         nav ul { list-style: none; display: flex; gap: 20px; }
-        nav a { text-decoration: none; color: #fff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
-        nav a:hover { color: var(--gold); }
+        nav a { text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--gold); }
 
-        /* CONTEÚDO */
-        .main-content { position: relative; z-index: 10; padding-top: 85px; }
-        
-        .hero-section { height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
-        .hero-center h1 { font-family: 'Playfair Display', serif; font-size: 3rem; text-transform: uppercase; margin: 5px 0; }
-        .line-hero { width: 100%; max-width: 600px; height: 6px; background: var(--gold); margin: 15px auto; }
-
-        /* ARSENAL - ALTA DENSIDADE */
-        .arsenal-section { padding: 0 5% 50px; background: transparent; }
-        .arsenal-container { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1400px; margin: 0 auto; }
-        
-        .column-title { 
-            font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); 
-            margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; 
+        /* INTERFACE FLUTUANTE */
+        .main-content { 
+            position: relative; z-index: 10; height: 100vh; width: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
 
-        /* CARROSSEL INTERATIVO */
-        .carousel-track { width: 100%; overflow: hidden; position: relative; backdrop-filter: blur(5px); border-radius: 8px; }
-        .carousel-inner { display: flex; animation: scroll-arsenal 21s linear infinite; } /* 6 itens * 3.5s */
+        .hero-center { text-align: center; margin-bottom: 30px; transition: 0.5s; }
+        .hero-center h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; text-transform: uppercase; }
+        .line-hero { width: 400px; height: 4px; background: var(--gold); margin: 10px auto; }
+
+        /* ARSENAL NAS PAREDES */
+        .side-arsenal {
+            position: absolute; bottom: 8%; width: 100%;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 150px;
+            padding: 0 5%; align-items: end;
+        }
+
+        .column-title { 
+            font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); 
+            margin-bottom: 0px; text-transform: uppercase; letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,1);
+        }
+
+        .carousel-track { overflow: hidden; width: 100%; }
+        .carousel-inner { display: flex; animation: scroll-arsenal 21s linear infinite; }
         .carousel-inner:hover { animation-play-state: paused; }
 
-        .product-card { 
-            min-width: 220px; margin-right: 15px; background: var(--card-bg); 
-            border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 4px; 
-            transition: 0.4s; text-decoration: none; 
+        .product-card { min-width: 180px; margin-right: 15px; background: transparent; transition: 0.4s; text-decoration: none; }
+        .card-img { height: 260px; display: flex; align-items: center; justify-content: center; }
+        .card-img img { 
+            max-width: 100%; max-height: 100%; object-fit: contain; 
+            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.9));
         }
-        .product-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        
-        .card-img { height: 300px; padding: 15px; display: flex; align-items: center; justify-content: center; }
-        .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.8)); }
 
         @keyframes scroll-arsenal {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Ajustado para loop com duplicatas */
+            100% { transform: translateX(-50%); }
         }
+
+        /* FOOTER COMPACTO */
+        footer { position: fixed; bottom: 0; width: 100%; padding: 10px; text-align: center; background: rgba(0,0,0,0.8); font-size: 0.7rem; z-index: 100; }
     </style>
 </head>
 <body>
-    <div class="bg-layer"></div>
+    <div id="bg" class="bg-layer"></div>
     
     <header>
         <div class="logo">
@@ -78,9 +86,10 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#arsenal" style="color: var(--gold);">Arsenal</a></li>
-                <li><a href="#arsenal">Ebooks</a></li>
+                <li><a onclick="changeMode('home', 'capa.jpg')">Início</a></li>
+                <li><a onclick="changeMode('arsenal', 'capa.jpg')">Arsenal</a></li>
+                <li><a onclick="changeMode('ebooks', 'mockup14.jpg')">Ebooks</a></li>
+                <li><a onclick="changeMode('audios', 'capa.jpg')">Audiobooks</a></li>
                 <li><a href="degustacao.html">Degustação</a></li>
                 <li><a href="avaliacoes.html">Avaliações</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
@@ -90,55 +99,72 @@
     </header>
 
     <div class="main-content">
-        <section id="inicio" class="hero-section">
-            <div class="hero-center">
-                <h1>O Conforto é uma Prisão</h1>
-                <div class="line-hero"></div>
-                <h1>O Código é a Chave</h1>
-            </div>
-        </section>
+        <div id="hero" class="hero-center">
+            <h1>O Conforto é uma Prisão</h1>
+            <div class="line-hero"></div>
+            <h1>O Código é a Chave</h1>
+        </div>
 
-        <section id="arsenal" class="arsenal-section">
-            <div class="arsenal-container">
-                <div class="arsenal-column">
-                    <h2 class="column-title">Ebooks</h2>
-                    <div class="carousel-track">
-                        <div class="carousel-inner">
-                            <a href="sinopse-descubra.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
-                            <a href="sinopse-autopsia.html" class="product-card"><div class="card-img"><img src="ebook02.png"></div></a>
-                            <a href="sinopse-engenharia.html" class="product-card"><div class="card-img"><img src="ebook03.png"></div></a>
-                            <a href="sinopse-know.html" class="product-card"><div class="card-img"><img src="ebook04.png"></div></a>
-                            <a href="sinopse-descubre.html" class="product-card"><div class="card-img"><img src="ebook05.png"></div></a>
-                            <a href="sinopse-decouvrez.html" class="product-card"><div class="card-img"><img src="ebook06.png"></div></a>
-                            <a href="sinopse-descubra.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
-                            <a href="sinopse-autopsia.html" class="product-card"><div class="card-img"><img src="ebook02.png"></div></a>
-                            <a href="sinopse-engenharia.html" class="product-card"><div class="card-img"><img src="ebook03.png"></div></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="arsenal-column">
-                    <h2 class="column-title">Áudios</h2>
-                    <div class="carousel-track">
-                        <div class="carousel-inner">
-                            <a href="audio-descubra.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
-                            <a href="audio-autopsia.html" class="product-card"><div class="card-img"><img src="audio02.png"></div></a>
-                            <a href="audio-engenharia.html" class="product-card"><div class="card-img"><img src="audio03.png"></div></a>
-                            <a href="audio-know.html" class="product-card"><div class="card-img"><img src="audio04.png"></div></a>
-                            <a href="audio-descubre.html" class="product-card"><div class="card-img"><img src="audio05.png"></div></a>
-                            <a href="audio-decouvrez.html" class="product-card"><div class="card-img"><img src="audio06.png"></div></a>
-                            <a href="audio-descubra.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
-                            <a href="audio-autopsia.html" class="product-card"><div class="card-img"><img src="audio02.png"></div></a>
-                            <a href="audio-engenharia.html" class="product-card"><div class="card-img"><img src="audio03.png"></div></a>
-                        </div>
+        <div class="side-arsenal">
+            <div id="col-ebooks" class="arsenal-column">
+                <h2 class="column-title">Ebooks</h2>
+                <div class="carousel-track">
+                    <div class="carousel-inner">
+                        <a href="sinopse-descubra.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
+                        <a href="sinopse-autopsia.html" class="product-card"><div class="card-img"><img src="ebook02.png"></div></a>
+                        <a href="sinopse-engenharia.html" class="product-card"><div class="card-img"><img src="ebook03.png"></div></a>
+                        <a href="sinopse-descubra.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <div id="col-audios" class="arsenal-column">
+                <h2 class="column-title" style="text-align: right;">Áudios</h2>
+                <div class="carousel-track">
+                    <div class="carousel-inner">
+                        <a href="audio-descubra.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
+                        <a href="audio-autopsia.html" class="product-card"><div class="card-img"><img src="audio02.png"></div></a>
+                        <a href="audio-engenharia.html" class="product-card"><div class="card-img"><img src="audio03.png"></div></a>
+                        <a href="audio-descubra.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer style="position: relative; z-index: 10; padding: 40px; text-align: center; background: #000; font-size: 0.8rem; border-top: 1px solid #333;">
-        PORTAL PLENO O CÓDIGO © 2026
-    </footer>
+    <footer>PORTAL PLENO O CÓDIGO © 2026</footer>
+
+    <script>
+        function changeMode(mode, bgImage) {
+            document.getElementById('bg').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${bgImage}')`;
+            
+            const colEbooks = document.getElementById('col-ebooks');
+            const colAudios = document.getElementById('col-audios');
+            const hero = document.getElementById('hero');
+
+            if (mode === 'ebooks') {
+                colEbooks.style.display = 'block';
+                colAudios.style.display = 'none';
+                hero.style.opacity = '0';
+                document.querySelector('.side-arsenal').style.gridTemplateColumns = '1fr';
+            } else if (mode === 'audios') {
+                colEbooks.style.display = 'none';
+                colAudios.style.display = 'block';
+                hero.style.opacity = '0';
+                document.querySelector('.side-arsenal').style.gridTemplateColumns = '1fr';
+            } else if (mode === 'home') {
+                colEbooks.style.display = 'none';
+                colAudios.style.display = 'none';
+                hero.style.opacity = '1';
+            } else {
+                colEbooks.style.display = 'block';
+                colAudios.style.display = 'block';
+                hero.style.opacity = '1';
+                document.querySelector('.side-arsenal').style.gridTemplateColumns = '1fr 1fr';
+            }
+        }
+        // Iniciar em modo Home (sem carrossel visível até clicar)
+        changeMode('home', 'capa.jpg');
+    </script>
 </body>
 </html>
