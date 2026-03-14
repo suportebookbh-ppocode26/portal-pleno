@@ -8,15 +8,12 @@
     <style>
         :root { --gold: #FFD700; --bg: #000; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* HARDWARE TRAVADO - ZERO SCROLL */
         body, html { height: 100vh; width: 100vw; overflow: hidden; background-color: #000; font-family: 'Inter', sans-serif; color: var(--white); }
 
-        /* BACKDROP DINÂMICO */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('capa.jpg') no-repeat center center;
-            background-size: cover; z-index: 1; transition: background-image 0.8s ease-in-out;
+            background-size: cover; z-index: 1; transition: 0.8s ease-in-out;
         }
 
         header {
@@ -25,52 +22,54 @@
         }
         .logo { display: flex; align-items: center; gap: 15px; }
         .logo img { height: 60px; width: auto; } 
-        .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; }
+        .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; }
         
         nav ul { list-style: none; display: flex; gap: 20px; }
         nav a { text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        nav a:hover { color: var(--gold); }
+        nav a:hover { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
-        .main-content { position: relative; z-index: 10; height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; }
-
-        .hero-center { text-align: center; margin-top: -50px; transition: 0.5s; }
-        .hero-center h1 { font-family: 'Playfair Display', serif; font-size: 3.2rem; text-transform: uppercase; text-shadow: 2px 2px 20px rgba(0,0,0,1); line-height: 1.1; }
-        .line-hero { width: 500px; height: 5px; background: var(--gold); margin: 15px auto; }
-
-        /* COLUNAS LATERAIS TIPO PAREDE */
-        .side-arsenal {
-            position: absolute; bottom: 8%; width: 100%;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
-            padding: 0 5%; align-items: end;
+        .main-container {
+            height: 100vh; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 3%; position: relative; z-index: 10;
         }
 
-        .column-title { 
-            font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); 
-            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;
-            text-shadow: 2px 2px 10px #000;
+        .hero-center { flex: 2; text-align: center; max-width: 600px; padding: 0 10px; transition: 0.5s; }
+        .hero-center h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 3.2rem); text-transform: uppercase; text-shadow: 2px 2px 30px #000; line-height: 1.1; }
+        .line-hero { width: 100%; height: 6px; background: var(--gold); margin: 15px 0; box-shadow: 0 0 25px var(--gold); }
+
+        .product-window { width: 300px; display: flex; flex-direction: column; align-items: center; position: relative; transition: 0.5s; }
+        .window-title { color: var(--gold); font-size: 1.2rem; letter-spacing: 5px; text-transform: uppercase; font-weight: 700; position: absolute; top: -40px; z-index: 100; text-shadow: 2px 2px 10px #000; }
+
+        .display-box { width: 100%; height: 500px; position: relative; }
+        .display-box a { width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1.5s ease-in-out; animation: fadeLoop 18s infinite; }
+        .display-box img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 15px 25px #000); }
+
+        @keyframes fadeLoop { 0%, 16.66% { opacity: 1; z-index: 20; } 22.22%, 100% { opacity: 0; z-index: 1; } }
+        .display-box a:nth-child(1) { animation-delay: 0s; }
+        .display-box a:nth-child(2) { animation-delay: 3s; }
+        .display-box a:nth-child(3) { animation-delay: 6s; }
+        .display-box a:nth-child(4) { animation-delay: 9s; }
+        .display-box a:nth-child(5) { animation-delay: 12s; }
+        .display-box a:nth-child(6) { animation-delay: 15s; }
+
+        footer {
+            position: fixed; bottom: 0; width: 100%; padding: 25px;
+            text-align: center; background: rgba(0,0,0,0.95); z-index: 1000;
+            border-top: 2px solid var(--gold);
         }
-
-        .carousel-track { overflow: hidden; width: 100%; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
-        .carousel-inner { display: flex; animation: scroll-arsenal 25s linear infinite; }
-        .carousel-inner:hover { animation-play-state: paused; }
-        
-        .product-card { min-width: 180px; margin-right: 30px; background: transparent; transition: 0.4s; text-decoration: none; }
-        .product-card:hover { transform: translateY(-15px) scale(1.05); }
-        
-        .card-img { height: 260px; display: flex; align-items: center; justify-content: center; }
-        .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.8)); }
-
-        @keyframes scroll-arsenal {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .footer-main { 
+            color: var(--white); font-weight: 700; text-transform: uppercase; 
+            font-size: 0.9rem; text-decoration: none; transition: 0.3s;
+            display: inline-block; letter-spacing: 1px;
         }
-
-        footer { position: fixed; bottom: 0; width: 100%; padding: 12px; text-align: center; background: rgba(0,0,0,0.8); font-size: 0.65rem; z-index: 100; border-top: 1px solid #222; letter-spacing: 2px; }
+        .footer-main span { display: block; font-size: 0.7rem; color: var(--gold); margin-top: 5px; font-weight: 400; text-transform: none; }
+        .footer-main:hover { transform: scale(1.05); text-shadow: 0 0 15px var(--gold); }
     </style>
 </head>
 <body>
+
     <div id="bg-soberano" class="bg-layer"></div>
-    
+
     <header>
         <div class="logo"><img src="selo.jpg"><span>Portal Pleno O Código</span></div>
         <nav>
@@ -87,68 +86,55 @@
         </nav>
     </header>
 
-    <div class="main-content">
+    <main class="main-container">
+        <div id="col-ebooks" class="product-window">
+            <div class="window-title">Ebooks</div>
+            <div class="display-box">
+                <a href="arsenal.html"><img src="ebook01.png"></a>
+                <a href="arsenal.html"><img src="ebook02.png"></a>
+                <a href="arsenal.html"><img src="ebook03.png"></a>
+                <a href="arsenal.html"><img src="ebook04.png"></a>
+                <a href="arsenal.html"><img src="ebook05.png"></a>
+                <a href="arsenal.html"><img src="ebook06.png"></a>
+            </div>
+        </div>
+
         <div id="hero" class="hero-center">
             <h1>O CONFORTO É UMA PRISÃO</h1>
             <div class="line-hero"></div>
             <h1>O CÓDIGO É A CHAVE</h1>
         </div>
 
-        <div class="side-arsenal">
-            <div id="col-ebooks" class="arsenal-column">
-                <h2 class="column-title">Ebooks</h2>
-                <div class="carousel-track">
-                    <div class="carousel-inner">
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook02.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook03.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook02.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook03.png"></div></a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="col-audios" class="arsenal-column">
-                <h2 class="column-title" style="text-align: right;">Áudios</h2>
-                <div class="carousel-track">
-                    <div class="carousel-inner">
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio02.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio03.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio02.png"></div></a>
-                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio03.png"></div></a>
-                    </div>
-                </div>
+        <div id="col-audios" class="product-window">
+            <div class="window-title">Audiobooks</div>
+            <div class="display-box">
+                <a href="arsenal.html"><img src="audio01.png"></a>
+                <a href="arsenal.html"><img src="audio02.png"></a>
+                <a href="arsenal.html"><img src="audio03.png"></a>
+                <a href="arsenal.html"><img src="audio04.png"></a>
+                <a href="arsenal.html"><img src="audio05.png"></a>
+                <a href="arsenal.html"><img src="audio06.png"></a>
             </div>
         </div>
-    </div>
+    </main>
 
-    <footer>PORTAL PLENO O CÓDIGO © 2026</footer>
+    <footer>
+        <a href="arsenal.html" class="footer-main">
+            Acesse os protocolos de Engenharia de Colisão e Soberania Mental
+            <span>tome o controle total dos seus sentimentos</span>
+        </a>
+    </footer>
 
     <script>
         function updateUI(mode, img) {
-            // Injeção de cenário no hardware
             document.getElementById('bg-soberano').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('${img}')`;
-            
             const hero = document.getElementById('hero');
             const ebooks = document.getElementById('col-ebooks');
             const audios = document.getElementById('col-audios');
-
-            if (mode === 'ebooks') {
-                hero.style.opacity = '0.1';
-                ebooks.style.opacity = '1';
-                audios.style.opacity = '0.2';
-            } else if (mode === 'audios') {
-                hero.style.opacity = '0.1';
-                ebooks.style.opacity = '0.2';
-                audios.style.opacity = '1';
-            } else {
-                hero.style.opacity = '1';
-                ebooks.style.opacity = '1';
-                audios.style.opacity = '1';
-            }
+            
+            hero.style.opacity = (mode === 'home') ? '1' : '0.1';
+            ebooks.style.opacity = (mode === 'audios') ? '0.2' : '1';
+            audios.style.opacity = (mode === 'ebooks') ? '0.2' : '1';
         }
     </script>
 </body>
