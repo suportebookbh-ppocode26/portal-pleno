@@ -9,87 +9,76 @@
         :root { --gold: #FFD700; --bg: #000; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* BLOQUEIO DE ROLAGEM - HARDWARE ÚNICO */
+        /* HARDWARE TRAVADO - ZERO SCROLL */
         body, html { height: 100vh; width: 100vw; overflow: hidden; background-color: #000; font-family: 'Inter', sans-serif; color: var(--white); }
 
         /* BACKDROP DINÂMICO */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('capa.jpg') no-repeat center center;
-            background-size: cover; z-index: 1; transition: 0.8s ease-in-out;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('capa.jpg') no-repeat center center;
+            background-size: cover; z-index: 1; transition: background-image 0.8s ease-in-out;
         }
 
-        /* HEADER SOBERANO */
         header {
-            background: #000; padding: 0 5%; display: flex; 
-            justify-content: space-between; align-items: center; 
-            position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; 
-            border-bottom: 2px solid var(--gold);
+            background: #000; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; 
+            position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; border-bottom: 2px solid var(--gold);
         }
         .logo { display: flex; align-items: center; gap: 15px; }
         .logo img { height: 60px; width: auto; } 
-        .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; }
+        .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; }
         
         nav ul { list-style: none; display: flex; gap: 20px; }
         nav a { text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        nav a:hover, nav a.active { color: var(--gold); }
+        nav a:hover { color: var(--gold); }
 
-        /* INTERFACE FLUTUANTE */
-        .main-content { 
-            position: relative; z-index: 10; height: 100vh; width: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-        }
+        .main-content { position: relative; z-index: 10; height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; }
 
-        .hero-center { text-align: center; margin-bottom: 30px; transition: 0.5s; }
-        .hero-center h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; text-transform: uppercase; }
-        .line-hero { width: 400px; height: 4px; background: var(--gold); margin: 10px auto; }
+        .hero-center { text-align: center; margin-top: -50px; transition: 0.5s; }
+        .hero-center h1 { font-family: 'Playfair Display', serif; font-size: 3.2rem; text-transform: uppercase; text-shadow: 2px 2px 20px rgba(0,0,0,1); line-height: 1.1; }
+        .line-hero { width: 500px; height: 5px; background: var(--gold); margin: 15px auto; }
 
-        /* ARSENAL NAS PAREDES */
+        /* COLUNAS LATERAIS TIPO PAREDE */
         .side-arsenal {
             position: absolute; bottom: 8%; width: 100%;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 150px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
             padding: 0 5%; align-items: end;
         }
 
         .column-title { 
-            font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--gold); 
-            margin-bottom: 0px; text-transform: uppercase; letter-spacing: 2px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,1);
+            font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); 
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;
+            text-shadow: 2px 2px 10px #000;
         }
 
-        .carousel-track { overflow: hidden; width: 100%; }
-        .carousel-inner { display: flex; animation: scroll-arsenal 21s linear infinite; }
+        .carousel-track { overflow: hidden; width: 100%; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+        .carousel-inner { display: flex; animation: scroll-arsenal 25s linear infinite; }
         .carousel-inner:hover { animation-play-state: paused; }
-
-        .product-card { min-width: 180px; margin-right: 15px; background: transparent; transition: 0.4s; text-decoration: none; }
+        
+        .product-card { min-width: 180px; margin-right: 30px; background: transparent; transition: 0.4s; text-decoration: none; }
+        .product-card:hover { transform: translateY(-15px) scale(1.05); }
+        
         .card-img { height: 260px; display: flex; align-items: center; justify-content: center; }
-        .card-img img { 
-            max-width: 100%; max-height: 100%; object-fit: contain; 
-            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.9));
-        }
+        .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.8)); }
 
         @keyframes scroll-arsenal {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
-        /* FOOTER COMPACTO */
-        footer { position: fixed; bottom: 0; width: 100%; padding: 10px; text-align: center; background: rgba(0,0,0,0.8); font-size: 0.7rem; z-index: 100; }
+        footer { position: fixed; bottom: 0; width: 100%; padding: 12px; text-align: center; background: rgba(0,0,0,0.8); font-size: 0.65rem; z-index: 100; border-top: 1px solid #222; letter-spacing: 2px; }
     </style>
 </head>
 <body>
-    <div id="bg" class="bg-layer"></div>
+    <div id="bg-soberano" class="bg-layer"></div>
     
     <header>
-        <div class="logo">
-            <img src="selo.jpg" alt="Selo"> <span>Portal Pleno O Código</span>
-        </div>
+        <div class="logo"><img src="selo.jpg"><span>Portal Pleno O Código</span></div>
         <nav>
             <ul>
-                <li><a onclick="changeMode('home', 'capa.jpg')">Início</a></li>
-                <li><a onclick="changeMode('arsenal', 'capa.jpg')">Arsenal</a></li>
-                <li><a onclick="changeMode('ebooks', 'mockup13.jpg')">Ebooks</a></li>
-                <li><a onclick="changeMode('audios', 'capa.jpg')">Audiobooks</a></li>
+                <li><a onclick="updateUI('home', 'capa.jpg')">Início</a></li>
+                <li><a href="arsenal.html">Arsenal</a></li>
+                <li><a onclick="updateUI('ebooks', 'mockup13.jpg')">Ebooks</a></li>
+                <li><a onclick="updateUI('audios', 'capa.jpg')">Audiobooks</a></li>
                 <li><a href="degustacao.html">Degustação</a></li>
                 <li><a href="avaliacoes.html">Avaliações</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
@@ -100,9 +89,9 @@
 
     <div class="main-content">
         <div id="hero" class="hero-center">
-            <h1>O Conforto é uma Prisão</h1>
+            <h1>O CONFORTO É UMA PRISÃO</h1>
             <div class="line-hero"></div>
-            <h1>O Código é a Chave</h1>
+            <h1>O CÓDIGO É A CHAVE</h1>
         </div>
 
         <div class="side-arsenal">
@@ -110,10 +99,12 @@
                 <h2 class="column-title">Ebooks</h2>
                 <div class="carousel-track">
                     <div class="carousel-inner">
-                        <a href="sinopse-descubra.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
-                        <a href="sinopse-autopsia.html" class="product-card"><div class="card-img"><img src="ebook02.png"></div></a>
-                        <a href="sinopse-engenharia.html" class="product-card"><div class="card-img"><img src="ebook03.png"></div></a>
-                        <a href="sinopse-descubra.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook02.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook03.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook01.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook02.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="ebook03.png"></div></a>
                     </div>
                 </div>
             </div>
@@ -122,10 +113,12 @@
                 <h2 class="column-title" style="text-align: right;">Áudios</h2>
                 <div class="carousel-track">
                     <div class="carousel-inner">
-                        <a href="audio-descubra.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
-                        <a href="audio-autopsia.html" class="product-card"><div class="card-img"><img src="audio02.png"></div></a>
-                        <a href="audio-engenharia.html" class="product-card"><div class="card-img"><img src="audio03.png"></div></a>
-                        <a href="audio-descubra.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio02.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio03.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio01.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio02.png"></div></a>
+                        <a href="arsenal.html" class="product-card"><div class="card-img"><img src="audio03.png"></div></a>
                     </div>
                 </div>
             </div>
@@ -135,36 +128,28 @@
     <footer>PORTAL PLENO O CÓDIGO © 2026</footer>
 
     <script>
-        function changeMode(mode, bgImage) {
-            document.getElementById('bg').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${bgImage}')`;
+        function updateUI(mode, img) {
+            // Injeção de cenário no hardware
+            document.getElementById('bg-soberano').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('${img}')`;
             
-            const colEbooks = document.getElementById('col-ebooks');
-            const colAudios = document.getElementById('col-audios');
             const hero = document.getElementById('hero');
+            const ebooks = document.getElementById('col-ebooks');
+            const audios = document.getElementById('col-audios');
 
             if (mode === 'ebooks') {
-                colEbooks.style.display = 'block';
-                colAudios.style.display = 'none';
-                hero.style.opacity = '0';
-                document.querySelector('.side-arsenal').style.gridTemplateColumns = '1fr';
+                hero.style.opacity = '0.1';
+                ebooks.style.opacity = '1';
+                audios.style.opacity = '0.2';
             } else if (mode === 'audios') {
-                colEbooks.style.display = 'none';
-                colAudios.style.display = 'block';
-                hero.style.opacity = '0';
-                document.querySelector('.side-arsenal').style.gridTemplateColumns = '1fr';
-            } else if (mode === 'home') {
-                colEbooks.style.display = 'none';
-                colAudios.style.display = 'none';
-                hero.style.opacity = '1';
+                hero.style.opacity = '0.1';
+                ebooks.style.opacity = '0.2';
+                audios.style.opacity = '1';
             } else {
-                colEbooks.style.display = 'block';
-                colAudios.style.display = 'block';
                 hero.style.opacity = '1';
-                document.querySelector('.side-arsenal').style.gridTemplateColumns = '1fr 1fr';
+                ebooks.style.opacity = '1';
+                audios.style.opacity = '1';
             }
         }
-        // Iniciar em modo Home (sem carrossel visível até clicar)
-        changeMode('home', 'capa.jpg');
     </script>
 </body>
 </html>
