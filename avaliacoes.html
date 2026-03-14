@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliações | Portal Pleno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #FFD700; --bg: #E8EAEB; --white: #fff; --black: #000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); font-family: 'Inter', sans-serif; color: var(--black); }
+        
+        /* HEADER SOBERANO */
+        header { background: #000; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; border-bottom: 2px solid var(--gold); }
+        .logo { display: flex; align-items: center; gap: 15px; }
+        .logo img { height: 60px; width: auto; }
+        .logo span { color: #fff; font-weight: 700; text-transform: uppercase; font-size: 1.1rem; }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav a { text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+
+        main { margin-top: 85px; padding: 60px 5%; max-width: 1200px; mx-auto; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; text-align: center; margin-bottom: 50px; }
+
+        /* FORMULÁRIO DE AVALIAÇÃO */
+        .form-container { background: var(--white); p: 40px; border-radius: 4px; shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid var(--gold); max-width: 600px; margin: 0 auto 60px; padding: 40px; }
+        .form-group { margin-bottom: 20px; }
+        label { block; font-weight: 700; margin-bottom: 8px; }
+        input, textarea, select { width: 100%; padding: 12px; border: 1px solid #d1d1d1; border-radius: 4px; }
+        .btn-submit { width: 100%; background: var(--gold); color: var(--black); border: none; padding: 15px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background: #cc0000; color: #fff; }
+
+        /* GRID DE DEPOIMENTOS */
+        .grid-reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .review-card { background: var(--white); padding: 30px; border-radius: 4px; border-left: 4px solid var(--gold); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .stars { color: var(--gold); font-size: 1.2rem; margin-bottom: 10px; }
+        .review-text { font-style: italic; line-height: 1.6; margin-bottom: 20px; }
+        .review-author { font-weight: 700; border-top: 1px solid #eee; pt: 15px; padding-top: 15px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="selo.jpg"><span>Portal Pleno</span></div>
+        <nav><ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#arsenal">Arsenal</a></li>
+            <li><a href="degustacao.html">Degustação</a></li>
+            <li><a href="avaliacoes.html">Avaliações</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+        </ul></nav>
+    </header>
+
+    <main>
+        <h1>Avaliações de Leitores</h1>
+
+        <div class="form-container">
+            <form id="reviewForm">
+                <div class="form-group"><label>Nome</label><input type="text" required></div>
+                <div class="form-group"><label>Avaliação</label><textarea maxlength="100" rows="4" required></textarea></div>
+                <div class="form-group">
+                    <label>Estrelas</label>
+                    <select><option>★★★★★ Excelente</option><option>★★★★ Muito Bom</option></select>
+                </div>
+                <button type="submit" class="btn-submit">ENVIAR AVALIAÇÃO</button>
+            </form>
+        </div>
+
+        <div class="grid-reviews">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Descubra Você mudou completamente minha perspectiva sobre relacionamentos. Recomendo para qualquer pessoa."</p>
+                <div class="review-author">Maria Silva <br><small>Livro: Descubra Você</small></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"A Autópsia da Personalidade foi uma experiência transformadora. Finalmente entendi os padrões que me limitavam."</p>
+                <div class="review-author">João Santos <br><small>Livro: Autópsia da Personalidade</small></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Engenharia da Colisão ofereceu ferramentas práticas que apliquei imediatamente em meus relacionamentos."</p>
+                <div class="review-author">Ana Costa <br><small>Livro: Engenharia da Colisão</small></div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
