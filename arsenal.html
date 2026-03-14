@@ -10,7 +10,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { min-height: 100vh; background-color: var(--bg); font-family: 'Inter', sans-serif; color: var(--white); overflow-x: hidden; }
 
-        /* Fundo Mockup14 Desfocado */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('mockup14.png') no-repeat center center;
@@ -21,35 +20,37 @@
             background: #000; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; 
             position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; border-bottom: 2px solid var(--gold);
         }
-        .logo img { height: 50px; width: auto; }
-        nav ul { list-style: none; display: flex; gap: 20px; }
-        nav a { text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .logo { display: flex; align-items: center; gap: 15px; }
+        .logo img { height: 60px; width: auto; }
+        .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; color: #fff; letter-spacing: 1px; }
+        
+        nav ul { list-style: none; display: flex; gap: 15px; }
+        nav a { text-decoration: none; color: #fff; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
-        /* VITRINE ARSENAL */
         .arsenal-container { max-width: 1200px; margin: 120px auto 50px; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
         .product-card { text-align: center; cursor: pointer; transition: transform 0.4s; }
         .product-card:hover { transform: translateY(-15px); }
         .product-card img { width: 100%; height: auto; max-height: 350px; object-fit: contain; filter: drop-shadow(0 10px 15px #000); }
         .stars { color: var(--gold); font-size: 1.2rem; margin-top: 5px; }
 
-        /* ABA DE SINOPSE (3 COLUNAS - FUNDO CLARO) */
         #sinopse-overlay {
             display: none; position: fixed; top: 85px; left: 0; width: 100%; height: calc(100vh - 85px);
             background: #f4f4f4; color: #333; z-index: 2000; padding: 40px 5%; overflow-y: auto;
         }
         .sinopse-columns { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 40px; max-width: 1300px; margin: 0 auto; }
         .col-left img { width: 100%; height: auto; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
-        .col-center h1 { font-size: 2.5rem; color: #000; margin-bottom: 5px; text-transform: uppercase; }
-        .col-center .author { color: var(--gold); font-weight: 700; margin-bottom: 30px; text-transform: uppercase; font-size: 0.9rem; }
-        .col-center p { font-size: 1.1rem; line-height: 1.6; color: #444; margin-bottom: 20px; text-align: justify; }
-        .col-center .sinopse-label { font-weight: 700; color: #888; text-transform: uppercase; border-top: 1px solid #ddd; padding-top: 20px; margin-top: 30px; }
-        .col-right { background: #333; border-radius: 8px; padding: 30px 20px; color: #fff; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .col-center h1 { font-size: 2.2rem; color: #000; margin-bottom: 5px; text-transform: uppercase; font-weight: 800; }
+        .col-center .author { color: var(--gold); font-weight: 700; margin-bottom: 20px; text-transform: uppercase; font-size: 0.9rem; }
+        .col-center p { font-size: 1rem; line-height: 1.6; color: #444; margin-bottom: 20px; text-align: justify; }
+        .col-center .sinopse-label { font-weight: 700; color: #888; text-transform: uppercase; border-top: 1px solid #ddd; padding-top: 20px; margin-top: 20px; letter-spacing: 2px; }
+        .col-right { background: #333; border-radius: 8px; padding: 30px 20px; color: #fff; text-align: center; align-self: start; }
         .price-label { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; font-weight: 700; }
         .price-value { font-size: 2.2rem; font-weight: 700; margin: 5px 0 20px; }
         .btn-stack { display: flex; flex-direction: column; gap: 8px; }
-        .btn-yellow { background: var(--gold); color: #000; padding: 12px; font-weight: 700; text-decoration: none; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; border: none; cursor: pointer; }
-        .btn-red { background: var(--red-btn); color: #fff; padding: 12px; font-weight: 700; text-decoration: none; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; }
-        .close-link { display: block; margin-top: 30px; color: #888; cursor: pointer; font-size: 0.8rem; text-transform: uppercase; text-decoration: underline; }
+        .btn-yellow { background: var(--gold); color: #000; padding: 12px; font-weight: 700; text-decoration: none; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; text-align: center; }
+        .btn-red { background: var(--red-btn); color: #fff; padding: 12px; font-weight: 700; text-decoration: none; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; text-align: center; }
+        .close-link { display: block; margin-top: 30px; color: #888; cursor: pointer; font-size: 0.8rem; text-transform: uppercase; text-decoration: underline; text-align: center; }
     </style>
 </head>
 <body>
@@ -57,53 +58,61 @@
 <div class="bg-layer"></div>
 
 <header>
-    <div class="logo"><img src="selo.jpg"></div>
+    <div class="logo">
+        <img src="selo.jpg" alt="Portal Pleno">
+        <span>Portal Pleno O Código</span>
+    </div>
     <nav>
         <ul>
-            <li><a href="index.html">INÍCIO</a></li>
-            <li><a href="arsenal.html" style="color:var(--gold)">ARSENAL</a></li>
-            <li><a href="degustacao.html">DEGUSTAÇÃO</a></li>
-            <li><a href="sobre.html">SOBRE</a></li>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="ebooks.html">Ebooks</a></li>
+            <li><a href="audiobooks.html">Audiobooks</a></li>
+            <li><a href="arsenal.html" class="active">Arsenal</a></li>
+            <li><a href="depoimentos.html">Depoimentos</a></li>
+            <li><a href="degustacao.html">Degustação</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
         </ul>
     </nav>
 </header>
 
 <div class="arsenal-container" id="vitrine-grid">
-    <div class="product-card" onclick="openSinopse('mockup03.png', 'Descubra Você', 'O Amor Extraordinário Começa Onde Você Menos Espera: Dentro de Você...', 'R$ 39,00')">
-        <img src="mockup03.png"><div class="stars">★★★★★</div>
+    <div class="product-card" onclick="openSinopse('ebook01.png', 'Descubra Você', 'O Amor Extraordinário Começa Onde Você Menos Espera: Dentro de Você. Muitas vezes, passamos a vida como caçadores do parceiro ideal, acreditando que a felicidade é um destino externo. Este protocolo de autoconhecimento revela que a peça que falta para relacionamentos plenos está guardada na sua própria essência. Uma autópsia visceral das suas emoções para reconstruir sua soberania.', 'R$ 39,00', 'https://pay.kiwify.com.br/P8UTO6L')">
+        <img src="ebook01.png"><div class="stars">★★★★★</div>
     </div>
-    <div class="product-card" onclick="openSinopse('mockup05.png', 'Engenharia da Colisão', 'Protocolos técnicos para relacionamentos de alta performance...', 'R$ 47,00')">
-        <img src="mockup05.png"><div class="stars">★★★★★</div>
+    <div class="product-card" onclick="openSinopse('ebook02.png', 'Engenharia da Colisão', 'Para casais que decidiram trocar a fragilidade da argila pela soberania do aço. Este manual técnico de engenharia comportamental disseca as mecânicas dos conflitos e apresenta protocolos de colisão controlada. Aprenda a usar a fricção do relacionamento como combustível para a evolução, estabelecendo um hardware emocional inquebrável entre parceiros de alta performance.', 'R$ 39,00', 'https://pay.kiwify.com.br/oRZAlbz')">
+        <img src="ebook02.png"><div class="stars">★★★★★</div>
     </div>
-    <div class="product-card" onclick="openSinopse('mockup07.png', 'Autópsia da Personalidade', 'Uma análise visceral do comportamento e da soberania mental...', 'R$ 47,00')">
-        <img src="mockup07.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('mockup09.png', 'Know Yourself', 'The international technical guide for self-knowledge...', 'R$ 39,00')">
-        <img src="mockup09.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('mockup11.png', 'Collision Engineering', 'Advanced protocols for high-performance relationships...', 'R$ 47,00')">
-        <img src="mockup11.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('mockup01.png', 'Autopsy of Personality', 'A deep dive into behavioral engineering and mental control...', 'R$ 47,00')">
-        <img src="mockup01.png"><div class="stars">★★★★★</div>
+    <div class="product-card" onclick="openSinopse('ebook03.png', 'Autópsia da Personalidade', 'Elimine as migalhas emocionais e recupere sua supremacia mental. Este compêndio técnico realiza uma autópsia profunda nos padrões de comportamento que sabotam sua soberania. Através de uma análise visceral da personalidade, você aprenderá a identificar vírus mentais e instalar um novo software de poder pessoal, focado em autodomínio e independência psicológica.', 'R$ 62,90', 'https://pay.kiwify.com.br/sD4nqRO')">
+        <img src="ebook03.png"><div class="stars">★★★★★</div>
     </div>
 
-    <div class="product-card" onclick="openSinopse('audio02.png', 'Audio Protocolo 02', 'Treinamento auditivo focado em reengenharia emocional...', 'R$ 97,00')">
-        <img src="audio02.png"><div class="stars">★★★★★</div>
+    <div class="product-card" onclick="openSinopse('ebook04.png', 'Know Yourself First', 'Extraordinary Love Begins Where You Least Expect It: Within You. A technical guide designed for international readers seeking relationship excellence through internal engineering. Decipher your emotional hardware and install the protocols of self-sovereignty. Stop hunting for happiness and start generating it through behavioral precision.', '$ 11.95', 'https://pay.kiwify.com/8S4FCE0')">
+        <img src="ebook04.png"><div class="stars">★★★★★</div>
     </div>
-    <div class="product-card" onclick="openSinopse('audio04.png', 'Audio Protocolo 04', 'Frequências e comandos para soberania mental imediata...', 'R$ 97,00')">
+    <div class="product-card" onclick="openSinopse('ebook05.png', 'The Engineering of Collision', 'For couples who chose to trade the fragility of clay for the sovereignty of steel. This manual provides high-performance protocols for relationship dynamics. Master the mechanics of collision to prevent collapse, using friction as a strategic tool for mutual growth and mental sovereignty in modern partnerships.', '$ 11.00', 'https://pay.kiwify.com/ZjtlaGh')">
+        <img src="ebook05.png"><div class="stars">★★★★★</div>
+    </div>
+    <div class="product-card" onclick="openSinopse('ebook06.png', 'The Supremacy Code', 'Erase emotional crumbs and reclaim your mental sovereignty. A deep behavioral engineering guide to analyzing personality patterns and identifying mental vulnerabilities. Upgrade your psychological software to operate from a position of power, clarity, and absolute sovereignty in all social and romantic interactions.', '$ 11.00', 'https://pay.kiwify.com/NcdLsaN')">
+        <img src="ebook06.png"><div class="stars">★★★★★</div>
+    </div>
+
+    <div class="product-card" onclick="openSinopse('audio04.png', 'Audio: Descubra Você', 'Protocolo auditivo de imersão para reengenharia emocional. Este hardware sonoro utiliza comandos diretos para despertar a consciência sobre sua essência interna. Projetado para ser processado durante o repouso ou atividade, facilitando a instalação de novos padrões de autoconhecimento e eliminando bloqueios que impedem relacionamentos extraordinários.', 'R$ 97,00', 'https://pay.kiwify.com.br/lDiv2Do')">
         <img src="audio04.png"><div class="stars">★★★★★</div>
     </div>
-    <div class="product-card" onclick="openSinopse('audio06.png', 'Audio Protocolo 06', 'Mapeamento de colisão e resolução de conflitos internos...', 'R$ 97,00')">
+    <div class="product-card" onclick="openSinopse('audio06.png', 'Audio: Engenharia da Colisão', 'O treinamento sonoro definitivo para casais sob a ótica da engenharia de colisão. Protocolos técnicos narrados para ajustar a frequência do relacionamento. Ideal para sintonizar parceiros na mesma vibração de soberania e aço, transformando a rotina em um ambiente de alta performance emocional e parceria indestrutível.', 'R$ 97,00', 'https://pay.kiwify.com.br/PmaKDGV')">
         <img src="audio06.png"><div class="stars">★★★★★</div>
     </div>
-    <div class="product-card" onclick="openSinopse('audio08.png', 'Audio Protocolo 08', 'Advanced mental sovereignty (English Version)...', 'R$ 97,00')">
+    <div class="product-card" onclick="openSinopse('audio08.png', 'Audio: Autópsia da Personalidade', 'Frequências operacionais e comandos técnicos para o controle mental total. Este áudio realiza uma limpeza visceral nos vírus comportamentais, permitindo que o operador recupere sua supremacia mental através da audição ativa. Um guia auditivo para quem busca a soberania absoluta sobre seus próprios pensamentos e reações.', 'R$ 97,00', 'https://pay.kiwify.com.br/nJO91Ia')">
         <img src="audio08.png"><div class="stars">★★★★★</div>
     </div>
-    <div class="product-card" onclick="openSinopse('audio10.png', 'Audio Protocolo 10', 'Technical collision protocols (English Version)...', 'R$ 97,00')">
+
+    <div class="product-card" onclick="openSinopse('audio02.png', 'Audio: Know Yourself First', 'International audio immersion protocol for emotional re-engineering. Direct commands to awaken consciousness of your internal essence. This technical soundscape helps install new patterns of self-knowledge, bypassing conscious resistance to build a foundation for extraordinary relationships.', '$ 97,00', 'https://pay.kiwify.com/ilgU4Kg')">
+        <img src="audio02.png"><div class="stars">★★★★★</div>
+    </div>
+    <div class="product-card" onclick="openSinopse('audio10.png', 'Audio: The Collision Engineering', 'Technical collision audio protocols for high-performance couples. Narrated engineering strategies to adjust relationship frequency. Use this auditory tool to align partners with the protocols of steel, ensuring mental sovereignty and strategic growth in the face of emotional friction.', '$ 97,00', 'https://pay.kiwify.com/2LTHnl0')">
         <img src="audio10.png"><div class="stars">★★★★★</div>
     </div>
-    <div class="product-card" onclick="openSinopse('audio12.png', 'Audio Protocolo 12', 'Deep behavioral analysis (English Version)...', 'R$ 97,00')">
+    <div class="product-card" onclick="openSinopse('audio12.png', 'Audio: The Supremacy Code', 'Operational frequencies and technical commands for total mental control. An English-language auditory guide for deep behavioral analysis. Cleanse your mental software of vulnerabilities and reclaim your position of sovereignty through this advanced audio engineering protocol.', '$ 97,00', 'https://pay.kiwify.com/TGmTjRA')">
         <img src="audio12.png"><div class="stars">★★★★★</div>
     </div>
 </div>
@@ -114,7 +123,7 @@
         <div class="col-center">
             <h1 id="display-title">TÍTULO</h1>
             <div class="author">POR JÚLIO BHRÓSZ</div>
-            <p id="display-desc">Descrição do produto...</p>
+            <p id="display-desc">Descrição técnica do protocolo...</p>
             <div class="sinopse-label">SINOPSE</div>
             <span class="close-link" onclick="closeSinopse()">[ VOLTAR AO ARSENAL ]</span>
         </div>
@@ -122,31 +131,4 @@
             <div class="price-label">APENAS</div>
             <div class="price-value" id="display-price">R$ 0,00</div>
             <div class="btn-stack">
-                <button class="btn-yellow">ADICIONAR AO CARRINHO</button>
-                <a href="#" class="btn-red">COMPRE AGORA</a>
-                <a href="#" class="btn-red">COMBO AUDIO</a>
-                <a href="#" class="btn-red">COMBO E-BOOK</a>
-                <a href="#" class="btn-red">COMBO COLETÂNEA</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function openSinopse(img, title, desc, price) {
-        document.getElementById('sinopse-overlay').style.display = 'block';
-        document.getElementById('vitrine-grid').style.display = 'none';
-        document.getElementById('display-mockup').innerHTML = '<img src="' + img + '">';
-        document.getElementById('display-title').innerText = title;
-        document.getElementById('display-desc').innerText = desc;
-        document.getElementById('display-price').innerText = price;
-        window.scrollTo(0,0);
-    }
-    function closeSinopse() {
-        document.getElementById('sinopse-overlay').style.display = 'none';
-        document.getElementById('vitrine-grid').style.display = 'grid';
-    }
-</script>
-
-</body>
-</html>
+                <a href="#" class="btn-yellow">ADIC
