@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato | Portal Pleno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #FFD700; --bg: #E8EAEB; --white: #fff; --black: #000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); font-family: 'Inter', sans-serif; color: var(--black); min-height: 100vh; display: flex; flex-direction: column; }
+        
+        header { background: #000; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; border-bottom: 2px solid var(--gold); }
+        .logo { display: flex; align-items: center; gap: 15px; }
+        .logo img { height: 60px; width: auto; }
+        .logo span { color: #fff; font-weight: 700; text-transform: uppercase; font-size: 1.1rem; }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav a { text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+
+        main { margin-top: 85px; padding: 60px 5%; max-width: 1200px; margin-left: auto; margin-right: auto; width: 100%; flex: 1; }
+        .contact-container { max-width: 600px; margin: 0 auto; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { font-size: 1.1rem; color: #666; margin-bottom: 40px; }
+
+        .form-card { background: var(--white); padding: 40px; border-radius: 4px; shadow: 0 4px 6px rgba(0,0,0,0.1); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: #666; margin-bottom: 8px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #d1d1d1; border-radius: 4px; font-size: 1rem; }
+        input:focus, textarea:focus { outline: none; border-color: var(--gold); }
+        
+        .btn-send { width: 100%; background: var(--black); color: var(--gold); border: none; padding: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
+        .btn-send:hover { opacity: 0.8; }
+
+        footer { background: #000; padding: 30px; text-align: center; color: #fff; font-size: 0.8rem; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="selo.jpg"><span>Portal Pleno</span></div>
+        <nav><ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#arsenal">Arsenal</a></li>
+            <li><a href="degustacao.html">Degustação</a></li>
+            <li><a href="avaliacoes.html">Avaliações</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="contato.html">Contato</a></li>
+        </ul></nav>
+    </header>
+
+    <main>
+        <div class="contact-container">
+            <h1>Entre em Contato</h1>
+            <p class="subtitle">Tem dúvidas ou sugestões? Envie uma mensagem para nós.</p>
+
+            <div class="form-card">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" name="name" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Assunto</label>
+                        <input type="text" name="subject" placeholder="Assunto da mensagem" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem</label>
+                        <textarea name="message" rows="6" placeholder="Sua mensagem..." required style="resize: none;"></textarea>
+                    </div>
+                    <button type="submit" class="btn-send">ENVIAR MENSAGEM</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>PORTAL PLENO O CÓDIGO © 2026</footer>
+</body>
+</html>
