@@ -8,8 +8,10 @@
     <style>
         :root { --gold: #FFD700; --bg: #000; --white: #fff; --red-combo: #cc0000; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { height: 100%; background-color: var(--bg); font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
-        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('capa.jpg') no-repeat center center; background-size: cover; z-index: 1; transition: 0.8s; filter: brightness(0.5); }
+        body, html { height: 100%; background-color: var(--bg); font-family: 'Inter', sans-serif; overflow: hidden; scroll-behavior: smooth; }
+        
+        /* Fundo com Clareza Integral */
+        .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('capa.jpg') no-repeat center center; background-size: cover; z-index: 1; transition: 0.8s; filter: brightness(1); }
         
         header { background: #000; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; border-bottom: 2px solid var(--gold); }
         .logo { display: flex; align-items: center; gap: 15px; }
@@ -18,132 +20,68 @@
         
         nav ul { list-style: none; display: flex; gap: 20px; }
         nav a { text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; cursor: pointer; }
-        nav a:hover, .active-nav { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
+        nav a:hover { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
-        .main-container { min-height: 100vh; padding-top: 100px; padding-bottom: 100px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 10; }
-        
-        /* --- Animação Keyframes para Flutuação --- */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+        .main-container { height: 100vh; display: flex; justify-content: space-between; align-items: center; padding: 0 3%; position: relative; z-index: 10; }
 
-        /* =========================================
-           SEÇÃO TÍTULOS (Grade Interativa)
-           ========================================= */
-        #titulos-section { width: 100%; display: none; padding: 0 5%; }
-        .titulos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; width: 100%; max-width: 1400px; margin-top: 50px; }
+        /* COLUNAS FLUTUANTES DA PÁGINA INICIAL */
+        .product-window { width: 280px; display: flex; flex-direction: column; align-items: center; position: relative; transition: 0.5s; }
+        .window-title { color: var(--gold); font-size: 0.85rem; letter-spacing: 5px; text-transform: uppercase; font-weight: 700; position: absolute; top: 60px; z-index: 100; text-shadow: 2px 2px 10px #000; }
+        .display-box { width: 100%; height: 480px; position: relative; }
+        .display-box a { width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1.5s ease-in-out; animation: fadeLoop 18s infinite; }
+        .display-box img { width: 100%; height: 100%; object-fit: contain; }
         
-        .card-titulo { text-align: center; position: relative; padding-bottom: 20px; cursor: pointer; transition: 0.3s; }
-        
-        /* Imagens Flutuantes e Interativas na Grade */
-        .card-titulo img { 
-            width: 100%; 
-            height: 400px; 
-            object-fit: contain; 
-            margin-bottom: 15px;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        /* Delays para animação assíncrona */
-        .card-titulo:nth-child(2) img { animation-delay: 1s; }
-        .card-titulo:nth-child(3) img { animation-delay: 2s; }
-        .card-titulo:nth-child(4) img { animation-delay: 3s; }
+        @keyframes fadeLoop { 0%, 16.66% { opacity: 1; z-index: 20; } 22.22%, 100% { opacity: 0; z-index: 1; } }
+        .display-box a:nth-child(1) { animation-delay: 0s; }
+        .display-box a:nth-child(2) { animation-delay: 3s; }
+        .display-box a:nth-child(3) { animation-delay: 6s; }
+        .display-box a:nth-child(4) { animation-delay: 9s; }
+        .display-box a:nth-child(5) { animation-delay: 12s; }
+        .display-box a:nth-child(6) { animation-delay: 15s; }
 
-        .card-titulo:hover img { 
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
-            animation-play-state: paused;
-        }
+        /* HERO CENTER */
+        .hero-home { flex: 2; text-align: center; max-width: 600px; padding: 0 10px; transition: 0.5s; }
+        .hero-home h1 { color: var(--white); font-size: clamp(1rem, 2.2vw, 2.5rem); text-shadow: 2px 2px 30px #000; text-transform: uppercase; font-weight: 700; line-height: 1.2; letter-spacing: 2px; white-space: nowrap; }
+        .line-hero { width: 100%; height: 6px; background: var(--gold); margin: 15px 0; box-shadow: 0 0 25px var(--gold); }
 
-        .stars-container { color: var(--gold); font-size: 1.2rem; margin-top: 10px; letter-spacing: 2px; }
+        /* SEÇÃO TÍTULOS (ESTILO GRADE) */
+        #titulos-section { width: 100%; display: none; padding: 120px 5% 100px; overflow-y: auto; height: 100vh; }
+        .titulos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; width: 100%; max-width: 1400px; margin: 0 auto; }
+        .card-titulo { text-align: center; cursor: pointer; }
+        .card-titulo img { width: 100%; height: 400px; object-fit: contain; animation: float 6s ease-in-out infinite; transition: 0.5s; }
+        .card-titulo:hover img { transform: translateY(-15px) scale(1.05); }
+        .stars-container { color: var(--gold); font-size: 1.2rem; margin-top: 10px; }
 
-        /* =========================================
-           SEÇÃO SINOPSE (3 Colunas)
-           ========================================= */
-        #sinopse-section { width: 100%; display: none; padding: 0 5%; margin-top: 50px; max-width: 1600px; }
-        .sinopse-container { display: grid; grid-template-columns: 1fr 1.5fr 300px; gap: 50px; align-items: start; }
-        
-        /* Coluna 1: Imagem Ampliada */
-        .sinopse-media { text-align: center; }
-        .sinopse-media img { 
-            width: 100%; 
-            max-width: 450px; 
-            height: auto; 
-            object-fit: contain;
-            animation: float 8s ease-in-out infinite; 
-            transition: 0.5s ease;
-        }
-        .sinopse-media img:hover { transform: scale(1.03); filter: brightness(1.1); }
-
-        /* Coluna 2: Texto da Sinopse */
-        .sinopse-text { color: var(--white); line-height: 1.8; font-size: 1rem; }
-        .sinopse-text h2 { color: var(--white); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
-        .sinopse-text .author { color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 30px; display: block; }
-        .sinopse-text p { margin-bottom: 20px; font-weight: 400; color: rgba(255,255,255,0.9); }
-        .sinopse-text strong { color: var(--gold); font-weight: 700; }
-
-        /* Coluna 3: Quadro de Opções (Fiel à imagem anexa) */
-        .sinopse-options { 
-            background: #111; 
-            border: 1px solid rgba(255,215,0,0.15); 
-            padding: 30px 20px; 
-            border-radius: 5px; 
-            text-align: center; 
-            position: sticky; top: 120px; /* Gruda na rolagem */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .options-header { color: #fff; margin-bottom: 25px; }
-        .options-header span { display: block; font-size: 0.7rem; text-transform: uppercase; color: var(--gold); letter-spacing: 1px; margin-bottom: 5px; }
-        .options-header .price-main { font-size: 2rem; font-weight: 700; }
-        
-        .btn-sinopse { 
-            width: 100%; 
-            padding: 15px; 
-            text-transform: uppercase; 
-            font-weight: 700; 
-            font-size: 0.75rem; 
-            border-radius: 3px; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            text-decoration: none; 
-            display: inline-block; 
-            margin-bottom: 10px;
-            border: none;
-        }
-        
+        /* SEÇÃO SINOPSE (3 COLUNAS) */
+        #sinopse-section { width: 100%; display: none; padding: 120px 5% 100px; overflow-y: auto; height: 100vh; }
+        .sinopse-container { display: grid; grid-template-columns: 1fr 1.5fr 300px; gap: 50px; max-width: 1600px; margin: 0 auto; align-items: start; }
+        .sinopse-media img { width: 100%; height: auto; animation: float 8s ease-in-out infinite; }
+        .sinopse-text { color: var(--white); line-height: 1.8; }
+        .sinopse-text h2 { font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; }
+        .sinopse-text .author { color: var(--gold); text-transform: uppercase; font-size: 0.8rem; margin-bottom: 30px; display: block; }
+        .sinopse-options { background: #111; border: 1px solid rgba(255,215,0,0.15); padding: 30px 20px; border-radius: 5px; text-align: center; }
+        .btn-sinopse { width: 100%; padding: 15px; text-transform: uppercase; font-weight: 700; font-size: 0.75rem; margin-bottom: 10px; cursor: pointer; border: none; text-decoration: none; display: block; }
         .btn-cart { background: var(--gold); color: #000; }
-        .btn-cart:hover { background: #fff; }
-        
         .btn-buy { background: #fff; color: #000; }
-        .btn-buy:hover { background: var(--gold); }
-        
         .btn-combo { background: var(--red-combo); color: #fff; }
-        .btn-combo:hover { background: #ff3333; }
 
-        /* =========================================
-           HOME, HERO E FOOTER
-           ========================================= */
-        .hero-home { text-align: center; margin-top: 15vh; transition: 0.5s; }
-        .hero-home h1 { color: var(--white); font-size: clamp(1.5rem, 4vw, 3.5rem); text-transform: uppercase; font-weight: 700; letter-spacing: 3px; }
-        .line-hero { width: 300px; height: 6px; background: var(--gold); margin: 20px auto; box-shadow: 0 0 25px var(--gold); }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
 
-        footer { position: fixed; bottom: 0; width: 100%; padding: 20px; text-align: center; background: rgba(0,0,0,0.95); z-index: 1000; border-top: 1px solid rgba(255,215,0,0.2); }
-        .footer-main { color: var(--white); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; text-decoration: none; cursor: pointer; }
-        .footer-main span { display: block; font-size: 0.6rem; color: var(--gold); margin-top: 5px; }
+        footer { position: fixed; bottom: 0; width: 100%; padding: 25px; text-align: center; background: rgba(0,0,0,0.95); z-index: 1000; border-top: 1px solid var(--gold); }
+        .footer-main { color: var(--white); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; text-decoration: none; cursor: pointer; }
+        .footer-main span { display: block; font-size: 0.7rem; color: var(--gold); margin-top: 5px; }
     </style>
 </head>
 <body>
     <div id="bg" class="bg-layer"></div>
+    
     <header>
         <div class="logo"><img src="selo.jpg"><span>Portal Pleno O Código</span></div>
         <nav>
             <ul>
                 <li><a onclick="showHome()">Início</a></li>
-                <li><a onclick="showTitulos()" id="nav-titulos">Títulos</a></li>
-                <li><a onclick="showSinopseDefault()" id="nav-sinopse">Sinopse</a></li>
+                <li><a onclick="showTitulos()">Títulos</a></li>
+                <li><a onclick="showSinopseDefault()">Sinopse</a></li>
                 <li><a href="degustacao.html">Degustação</a></li>
                 <li><a href="avaliacoes.html">Avaliações</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
@@ -152,60 +90,54 @@
         </nav>
     </header>
 
-    <main class="main-container">
-        <div id="home-content" class="hero-home">
-            <h1>O CONFORTO É UMA PRISÃO</h1>
-            <div class="line-hero"></div>
-            <h1>O CÓDIGO É A CHAVE</h1>
+    <main id="main-view">
+        <div id="home-content" class="main-container">
+            <div class="product-window">
+                <div class="window-title">Ebooks</div>
+                <div class="display-box">
+                    <a><img src="mockup03.png"></a><a><img src="mockup05.png"></a><a><img src="mockup07.png"></a>
+                    <a><img src="mockup09.png"></a><a><img src="mockup11.png"></a><a><img src="mockup01.png"></a>
+                </div>
+            </div>
+
+            <div class="hero-home">
+                <h1>O CONFORTO É UMA PRISÃO</h1>
+                <div class="line-hero"></div>
+                <h1>O CÓDIGO É A CHAVE</h1>
+            </div>
+
+            <div class="product-window">
+                <div class="window-title">Audiobooks</div>
+                <div class="display-box">
+                    <a><img src="audio02.png"></a><a><img src="audio04.png"></a><a><img src="audio06.png"></a>
+                    <a><img src="audio08.png"></a><a><img src="audio10.png"></a><a><img src="audio12.png"></a>
+                </div>
+            </div>
         </div>
 
         <div id="titulos-section">
             <div class="titulos-grid">
-                <div class="card-titulo" onclick="loadSinopse('mockup03.png', 'Descubra Você', 'Júlio Bhrósz')">
-                    <img src="mockup03.png">
-                    <div class="stars-container">★★★★★</div>
-                </div>
-                <div class="card-titulo" onclick="loadSinopse('mockup05.png', 'Engenharia da Colisão', 'Júlio Bhrósz')">
-                    <img src="mockup05.png">
-                    <div class="stars-container">★★★★★</div>
-                </div>
-                <div class="card-titulo" onclick="loadSinopse('mockup07.png', 'Autópsia da Personalidade', 'Júlio Bhrósz')">
-                    <img src="mockup07.png">
-                    <div class="stars-container">★★★★★</div>
-                </div>
-                <div class="card-titulo" onclick="loadSinopse('mockup01.png', 'Know Yourself First', 'Júlio Bhrósz')">
-                    <img src="mockup01.png">
-                    <div class="stars-container">★★★★★</div>
-                </div>
+                <div class="card-titulo" onclick="loadSinopse('mockup03.png', 'Descubra Você')"><img src="mockup03.png"><div class="stars-container">★★★★★</div></div>
+                <div class="card-titulo" onclick="loadSinopse('mockup05.png', 'Engenharia da Colisão')"><img src="mockup05.png"><div class="stars-container">★★★★★</div></div>
+                <div class="card-titulo" onclick="loadSinopse('mockup07.png', 'Autópsia da Personalidade')"><img src="mockup07.png"><div class="stars-container">★★★★★</div></div>
+                <div class="card-titulo" onclick="loadSinopse('mockup01.png', 'Know Yourself First')"><img src="mockup01.png"><div class="stars-container">★★★★★</div></div>
             </div>
         </div>
 
         <div id="sinopse-section">
             <div class="sinopse-container">
-                <div class="sinopse-media">
-                    <img id="sinopse-img" src="mockup03.png" alt="Capa do Título">
-                </div>
-                
+                <div class="sinopse-media"><img id="sinopse-img" src="mockup03.png"></div>
                 <div class="sinopse-text">
                     <h2 id="sinopse-title">Descubra Você</h2>
-                    <span id="sinopse-author" class="author">Por Júlio Bhrósz</span>
-                    <p>O Amor Extraordinário Começa Onde Você Menos Espera: Dentro de Você. Muitas vezes, passamos a vida como caçadores do parceiro ideal, acreditando que a felicidade é um destino externo que depende de outra pessoa.</p>
-                    <p>Mas e se a peça que falta para relacionamentos verdadeiramente plenos estivesse guardada na sua própria essência? Em <strong>"Descubra Você"</strong>, o autor Júlio Bhrósz convida você para uma jornada de "jardinagem interior".</p>
-                    <p>Combinando psicologia, neurociência e filosofia, este livro não oferece estratégias de conquista, mas as ferramentas para você se tornar o seu melhor "solo" — fértil, nutrido e pronto para florescer em conexões autênticas e duradouras.</p>
+                    <span class="author">Por Júlio Bhrósz</span>
+                    <p>O Amor Extraordinário Começa Onde Você Menos Espera: Dentro de Você...</p>
                     <p>Pare de procurar a metade da laranja e descubra a sua totalidade.</p>
                 </div>
-                
                 <div class="sinopse-options">
-                    <div class="options-header">
-                        <span>Apenas</span>
-                        <div class="price-main">R$ 49,90</div>
-                    </div>
-                    
+                    <div class="options-header"><span>Apenas</span><div class="price-main">R$ 49,90</div></div>
                     <button class="btn-sinopse btn-cart">Adicionar ao Carrinho</button>
-                    <a href="https://pay.kiwify.com.br/lDiv2Do" target="_blank" class="btn-sinopse btn-buy">Comprar Agora</a>
-                    
+                    <a href="#" class="btn-sinopse btn-buy">Comprar Agora</a>
                     <button class="btn-sinopse btn-combo">Combo Áudio</button>
-                    <button class="btn-sinopse btn-combo">Combo E-book</button>
                     <button class="btn-sinopse btn-combo">Combo Coletânea</button>
                 </div>
             </div>
@@ -213,49 +145,28 @@
     </main>
 
     <footer>
-        <a onclick="showTitulos()" class="footer-main">
-            Acesse os Títulos de Engenharia de Colisão e Soberania Mental
-            <span>tome o controle total dos seus sentimentos</span>
-        </a>
+        <a onclick="showTitulos()" class="footer-main">Acesse os Títulos de Engenharia de Colisão<span>tome o controle total dos seus sentimentos</span></a>
     </footer>
 
     <script>
-        // Lógica de navegação e carregamento dinâmico
-        const sections = ['home-content', 'titulos-section', 'sinopse-section'];
         const bg = document.getElementById('bg');
-
-        function hideAll() { sections.forEach(id => document.getElementById(id).style.display = 'none'); }
-
-        function showHome() { 
-            hideAll(); 
-            document.getElementById('home-content').style.display = 'block'; 
-            bg.style.filter = 'brightness(0.5)'; 
+        function hideAll() { 
+            document.getElementById('home-content').style.display = 'none';
+            document.getElementById('titulos-section').style.display = 'none';
+            document.getElementById('sinopse-section').style.display = 'none';
+            document.body.style.overflow = 'hidden';
         }
-
-        function showTitulos() { 
-            hideAll(); 
-            document.getElementById('titulos-section').style.display = 'block'; 
-            bg.style.filter = 'brightness(0.2)'; 
-            window.scrollTo(0,0);
-        }
-
-        function showSinopseDefault() {
-            // Carrega o primeiro título como padrão se clicar direto no menu
-            loadSinopse('mockup03.png', 'Descubra Você', 'Júlio Bhrósz');
-        }
-
-        function loadSinopse(imgSrc, title, author) {
+        function showHome() { hideAll(); document.getElementById('home-content').style.display = 'flex'; bg.style.filter = 'brightness(1)'; }
+        function showTitulos() { hideAll(); document.getElementById('titulos-section').style.display = 'block'; bg.style.filter = 'brightness(0.3)'; document.body.style.overflowY = 'auto'; }
+        function loadSinopse(img, title) {
             hideAll();
-            // Atualiza o conteúdo da página de Sinopse dinamicamente
-            document.getElementById('sinopse-img').src = imgSrc;
+            document.getElementById('sinopse-img').src = img;
             document.getElementById('sinopse-title').innerText = title;
-            document.getElementById('sinopse-author').innerText = `Por ${author}`;
-            
-            // Exibe a seção
             document.getElementById('sinopse-section').style.display = 'block';
             bg.style.filter = 'brightness(0.1)';
-            window.scrollTo(0,0);
+            document.body.style.overflowY = 'auto';
         }
+        function showSinopseDefault() { loadSinopse('mockup03.png', 'Descubra Você'); }
     </script>
 </body>
 </html>
