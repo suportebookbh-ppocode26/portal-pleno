@@ -3,158 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Pleno | Arsenal Operacional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Portal Pleno | O Código</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #FFD700; --bg: #000; --white: #fff; --red-btn: #C00; }
+        :root { --gold: #FFD700; --bg: #000; --white: #fff; --card-bg: #1a1a1a; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { min-height: 100vh; background-color: var(--bg); font-family: 'Inter', sans-serif; color: var(--white); overflow-x: hidden; }
+        body, html { min-height: 100%; background-color: var(--bg); font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; color: var(--white); }
 
+        /* BACKDROP SOBERANO - FIX DE CAPA */
         .bg-layer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('mockup14.png') no-repeat center center;
-            background-size: cover; filter: blur(15px); z-index: -1; transform: scale(1.1);
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('capa.jpg') no-repeat center center;
+            background-size: cover; z-index: 1;
         }
 
+        /* HEADER INTEGRADO */
         header {
-            background: #000; padding: 0 5%; display: flex; justify-content: space-between; align-items: center; 
-            position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; border-bottom: 2px solid var(--gold);
+            background: #000; padding: 0 5%; display: flex; 
+            justify-content: space-between; align-items: center; 
+            position: fixed; top: 0; width: 100%; z-index: 1000; height: 85px; 
+            border-bottom: 2px solid var(--gold);
         }
         .logo { display: flex; align-items: center; gap: 15px; }
-        .logo img { height: 60px; width: auto; }
-        .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; color: #fff; letter-spacing: 1px; }
+        .logo img { height: 60px; width: auto; } 
+        .logo span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; }
         
         nav ul { list-style: none; display: flex; gap: 15px; }
         nav a { text-decoration: none; color: #fff; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
-        nav a:hover, nav a.active { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
+        nav a:hover { color: var(--gold); }
 
-        .arsenal-container { max-width: 1200px; margin: 120px auto 50px; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
-        .product-card { text-align: center; cursor: pointer; transition: transform 0.4s; }
-        .product-card:hover { transform: translateY(-15px); }
-        .product-card img { width: 100%; height: auto; max-height: 350px; object-fit: contain; filter: drop-shadow(0 10px 15px #000); }
-        .stars { color: var(--gold); font-size: 1.2rem; margin-top: 5px; }
+        /* CONTEÚDO */
+        .main-content { position: relative; z-index: 10; padding-top: 100px; }
+        
+        .hero-section { height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 5%; }
+        .hero-center h1 { font-family: 'Playfair Display', serif; font-size: 3rem; text-transform: uppercase; margin: 10px 0; }
+        .line-hero { width: 100%; max-width: 600px; height: 6px; background: var(--gold); margin: 20px auto; }
 
-        #sinopse-overlay {
-            display: none; position: fixed; top: 85px; left: 0; width: 100%; height: calc(100vh - 85px);
-            background: #f4f4f4; color: #333; z-index: 2000; padding: 40px 5%; overflow-y: auto;
-        }
-        .sinopse-columns { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 40px; max-width: 1300px; margin: 0 auto; }
-        .col-left img { width: 100%; height: auto; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
-        .col-center h1 { font-size: 2.2rem; color: #000; margin-bottom: 5px; text-transform: uppercase; font-weight: 800; }
-        .col-center .author { color: var(--gold); font-weight: 700; margin-bottom: 20px; text-transform: uppercase; font-size: 0.9rem; }
-        .col-center p { font-size: 1rem; line-height: 1.6; color: #444; margin-bottom: 20px; text-align: justify; }
-        .col-center .sinopse-label { font-weight: 700; color: #888; text-transform: uppercase; border-top: 1px solid #ddd; padding-top: 20px; margin-top: 20px; letter-spacing: 2px; }
-        .col-right { background: #333; border-radius: 8px; padding: 30px 20px; color: #fff; text-align: center; align-self: start; }
-        .price-label { font-size: 0.8rem; color: var(--gold); text-transform: uppercase; font-weight: 700; }
-        .price-value { font-size: 2.2rem; font-weight: 700; margin: 5px 0 20px; }
-        .btn-stack { display: flex; flex-direction: column; gap: 8px; }
-        .btn-yellow { background: var(--gold); color: #000; padding: 12px; font-weight: 700; text-decoration: none; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; text-align: center; }
-        .btn-red { background: var(--red-btn); color: #fff; padding: 12px; font-weight: 700; text-decoration: none; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; text-align: center; }
-        .close-link { display: block; margin-top: 30px; color: #888; cursor: pointer; font-size: 0.8rem; text-transform: uppercase; text-decoration: underline; text-align: center; }
+        /* ARSENAL (MANTIDO CONFORME APROVAÇÃO) */
+        .arsenal-section { padding: 80px 5%; background: rgba(0,0,0,0.95); border-top: 2px solid var(--gold); }
+        .arsenal-title { font-family: 'Playfair Display', serif; font-size: 3rem; text-align: center; margin-bottom: 50px; text-transform: uppercase; color: var(--gold); }
+        .arsenal-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .product-card { background: var(--card-bg); border: 1px solid #333; border-radius: 12px; overflow: hidden; transition: 0.4s; cursor: pointer; text-decoration: none; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .card-img { height: 350px; padding: 20px; display: flex; align-items: center; justify-content: center; }
+        .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .card-info { padding: 20px; text-align: center; }
+        .card-info h2 { font-size: 1rem; color: var(--gold); margin-bottom: 10px; }
+        .card-price { font-size: 1.2rem; font-weight: 700; color: #fff; }
     </style>
 </head>
 <body>
-
-<div class="bg-layer"></div>
-
-<header>
-    <div class="logo">
-        <img src="selo.jpg" alt="Portal Pleno">
-        <span>Portal Pleno O Código</span>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="ebooks.html">Ebooks</a></li>
-            <li><a href="audiobooks.html">Audiobooks</a></li>
-            <li><a href="arsenal.html" class="active">Arsenal</a></li>
-            <li><a href="depoimentos.html">Depoimentos</a></li>
-            <li><a href="degustacao.html">Degustação</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-        </ul>
-    </nav>
-</header>
-
-<div class="arsenal-container" id="vitrine-grid">
-    <div class="product-card" onclick="openSinopse('ebook01.png', 'Descubra Você', 'O Amor Extraordinário começa na reengenharia do Eu. Este protocolo disseca a ilusão de que a felicidade depende de terceiros, instalando um novo software de autopercepção e soberania emocional.', 'R$ 39,00', 'https://pay.kiwify.com.br/P8UTO6L')">
-        <img src="ebook01.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('ebook02.png', 'Engenharia da Colisão', 'Manual técnico para casais que buscam a estabilidade do aço. Protocolos para transformar conflitos em evolução estrutural, garantindo a soberania do relacionamento sob alta pressão.', 'R$ 39,00', 'https://pay.kiwify.com.br/oRZAlbz')">
-        <img src="ebook02.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('ebook03.png', 'Autópsia da Personalidade', 'Análise visceral dos padrões que sabotam sua mente. Este compêndio remove vírus comportamentais e restaura sua supremacia mental através de um diagnóstico profundo e direto.', 'R$ 62,90', 'https://pay.kiwify.com.br/sD4nqRO')">
-        <img src="ebook03.png"><div class="stars">★★★★★</div>
-    </div>
-
-    <div class="product-card" onclick="openSinopse('ebook04.png', 'Know Yourself First', 'The technical blueprint for international self-knowledge. Decipher your emotional hardware and install the core protocols of self-sovereignty to master your romantic future.', '$ 11.95', 'https://pay.kiwify.com/8S4FCE0')">
-        <img src="ebook04.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('ebook05.png', 'The Engineering of Collision', 'Advanced relationship mechanics for high-performance partners. Master the friction and transform it into the steel-like bond of absolute mental sovereignty.', '$ 11.00', 'https://pay.kiwify.com/ZjtlaGh')">
-        <img src="ebook05.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('ebook06.png', 'The Supremacy Code', 'Erase emotional vulnerabilities and reclaim control. A deep-dive guide into behavioral engineering and the reclamation of your absolute sovereignty.', '$ 11.00', 'https://pay.kiwify.com/NcdLsaN')">
-        <img src="ebook06.png"><div class="stars">★★★★★</div>
-    </div>
-
-    <div class="product-card" onclick="openSinopse('audio04.png', 'Audio: Descubra Você', 'Imersão auditiva para reconfiguração emocional imediata. Comandos diretos projetados para o seu hardware mental, focados em despertar a consciência interna.', 'R$ 97,00', 'https://pay.kiwify.com.br/lDiv2Do')">
-        <img src="audio04.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('audio06.png', 'Audio: Engenharia da Colisão', 'Sintonize a frequência da soberania no seu relacionamento. Protocolos sonoros para casais que buscam operar em alta performance emocional.', 'R$ 97,00', 'https://pay.kiwify.com.br/PmaKDGV')">
-        <img src="audio06.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('audio08.png', 'Audio: Autópsia da Personalidade', 'Limpeza auditiva de vírus mentais. Frequências técnicas para recuperar sua supremacia e manter o controle total sobre seus pensamentos.', 'R$ 97,00', 'https://pay.kiwify.com.br/nJO91Ia')">
-        <img src="audio08.png"><div class="stars">★★★★★</div>
-    </div>
-
-    <div class="product-card" onclick="openSinopse('audio02.png', 'Audio: Know Yourself First', 'International audio immersion for self-mastery. Bypass conscious resistance and install the blueprint for extraordinary relationship dynamics.', '$ 97,00', 'https://pay.kiwify.com/ilgU4Kg')">
-        <img src="audio02.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('audio10.png', 'Audio: The Collision Engineering', 'Align your relationship frequency with the protocols of steel. Strategic auditory guide for global high-performance partners.', '$ 97,00', 'https://pay.kiwify.com/2LTHnl0')">
-        <img src="audio10.png"><div class="stars">★★★★★</div>
-    </div>
-    <div class="product-card" onclick="openSinopse('audio12.png', 'Audio: The Supremacy Code', 'Deep auditory analysis to cleanse your psychological software. Reclaim your position of sovereignty with advanced sound engineering.', '$ 97,00', 'https://pay.kiwify.com/TGmTjRA')">
-        <img src="audio12.png"><div class="stars">★★★★★</div>
-    </div>
-</div>
-
-<div id="sinopse-overlay">
-    <div class="sinopse-columns">
-        <div class="col-left" id="display-mockup"></div>
-        <div class="col-center">
-            <h1 id="display-title">TÍTULO</h1>
-            <div class="author">POR JÚLIO BHRÓSZ</div>
-            <p id="display-desc">Descrição técnica do protocolo...</p>
-            <div class="sinopse-label">SINOPSE</div>
-            <span class="close-link" onclick="closeSinopse()">[ VOLTAR AO ARSENAL ]</span>
+    <div class="bg-layer"></div>
+    
+    <header>
+        <div class="logo">
+            <img src="selo.jpg" alt="Selo"> <span>Portal Pleno O Código</span>
         </div>
-        <div class="col-right">
-            <div class="price-label">APENAS</div>
-            <div class="price-value" id="display-price">R$ 0,00</div>
-            <div class="btn-stack">
-                <a href="#" id="buy-now-link" class="btn-red" target="_blank">COMPRE AGORA</a>
-                <a href="#" class="btn-red">COMBO AUDIO</a>
-                <a href="#" class="btn-red">COMBO E-BOOK</a>
-                <a href="#" class="btn-red">COMBO COLETÂNEA</a>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#arsenal">Arsenal</a></li>
+                <li><a href="degustacao.html">Degustação</a></li>
+                <li><a href="avaliacoes.html">Avaliações</a></li> <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li> </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <section id="inicio" class="hero-section">
+            <div class="hero-center">
+                <h1>O Conforto é uma Prisão</h1>
+                <div class="line-hero"></div>
+                <h1>O Código é a Chave</h1>
             </div>
-        </div>
-    </div>
-</div>
+        </section>
 
-<script>
-    function openSinopse(img, title, desc, price, link) {
-        document.getElementById('sinopse-overlay').style.display = 'block';
-        document.getElementById('vitrine-grid').style.display = 'none';
-        document.getElementById('display-mockup').innerHTML = '<img src="' + img + '" style="width:100%">';
-        document.getElementById('display-title').innerText = title;
-        document.getElementById('display-desc').innerText = desc;
-        document.getElementById('display-price').innerText = price;
-        document.getElementById('buy-now-link').href = link;
-        window.scrollTo(0,0);
-    }
-    function closeSinopse() {
-        document.getElementById('sinopse-overlay').style.display = 'none';
-        document.getElementById('vitrine-grid').style.display = 'grid';
-    }
-</script>
+        <section id="arsenal" class="arsenal-section">
+            <h1 class="arsenal-title">Arsenal Operacional</h1>
+            <div class="arsenal-grid">
+                <a href="https://pay.kiwify.com.br/P8UTO6L" class="product-card">
+                    <div class="card-img"><img src="ebook01.png"></div>
+                    <div class="card-info"><h2>Descubra Você</h2><div class="card-price">R$ 49,90</div></div>
+                </a>
+                </div>
+        </section>
+    </div>
+
+    <footer style="position: relative; z-index: 10; padding: 40px; text-align: center; background: #000; font-size: 0.8rem; border-top: 1px solid #333;">
+        PORTAL PLENO O CÓDIGO © 2026
+    </footer>
 </body>
 </html>
